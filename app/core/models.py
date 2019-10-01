@@ -11,7 +11,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('Users must have an email address')
         user = self.model(email=self.normalize_email(email), **extra_fields)
-        user.set_password(password)  # saves enncrypted password
+        user.set_password(password)  # saves encrypted password
         user.save(using=self._db)  # not needed since req. when more than 1 DB
         return user
 
@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """Custom user model that supports using email isntead of username"""
+    """Custom user model that supports using email instead of username"""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
